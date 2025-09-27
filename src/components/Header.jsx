@@ -20,57 +20,54 @@ export default function Header() {
   };
 
   return (
-    <header className="bg-white shadow-md p-6 rounded-b-xl">
-      {/* entered Logo */}
-      <div className="flex justify-center mb-6">
-        <h1 className="text-4xl font-extrabold text-blue-600 flex items-center gap-2">
-          💊 MedStock
-        </h1>
+    <header className="bg-black shadow-md p-4 rounded-b-xl flex items-center justify-between mb-8">
+      {/* Logo and Title */}
+      <div className="flex items-center gap-3">
+        <span className="text-3xl">💊</span>
+        <h1 className="text-3xl font-extrabold text-blue-950">MedStock</h1>
       </div>
 
-      {/* ✅ Centered Input Form */}
-      <div className="flex flex-wrap justify-center items-center gap-4 max-w-5xl mx-auto">
+      {/* Input Form and Cart */}
+      <div className="flex items-center gap-3 flex-wrap justify-end">
         <input
-          className="border rounded px-3 py-2 w-40 focus:ring-2 focus:ring-blue-400"
-          placeholder="Medicine Name"
+          className="border rounded px-3 py-2 w-36 focus:ring-2 focus:ring-blue-400 text-sm"
+          placeholder="Name"
           value={form.name}
           onChange={(e) => setForm({ ...form, name: e.target.value })}
         />
         <input
-          className="border rounded px-3 py-2 w-48 focus:ring-2 focus:ring-blue-400"
+          className="border rounded px-3 py-2 w-44 focus:ring-2 focus:ring-blue-400 text-sm"
           placeholder="Description"
           value={form.desc}
           onChange={(e) => setForm({ ...form, desc: e.target.value })}
         />
         <input
-          className="border rounded px-3 py-2 w-28 focus:ring-2 focus:ring-blue-400"
+          className="border rounded px-3 py-2 w-24 focus:ring-2 focus:ring-blue-400 text-sm"
           type="number"
           placeholder="Price"
           value={form.price}
           onChange={(e) => setForm({ ...form, price: e.target.value })}
         />
         <input
-          className="border rounded px-3 py-2 w-28 focus:ring-2 focus:ring-blue-400"
+          className="border rounded px-3 py-2 w-20 focus:ring-2 focus:ring-blue-400 text-sm"
           type="number"
-          placeholder="Quantity"
+          placeholder="Qty"
           value={form.quantity}
           onChange={(e) => setForm({ ...form, quantity: e.target.value })}
         />
-
         <button
           onClick={handleAdd}
-          className="bg-green-600 hover:bg-green-700 text-white px-5 py-2 rounded shadow"
+          className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded shadow text-sm font-semibold"
         >
-          ➕ Add Medicine
+          ➕ Add
         </button>
-
         <button
           onClick={() => navigate("/cart")}
-          className="bg-blue-600 hover:bg-blue-700 text-white px-5 py-2 rounded shadow flex items-center gap-2"
+          className="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded shadow flex items-center gap-2 text-sm font-semibold"
         >
-          🛒 Cart{" "}
-          <span className="bg-white text-blue-600 font-bold rounded-full px-2 py-0.5">
-            {cart.length}
+          🛒 Cart
+          <span className="bg-white text-blue-600 font-bold rounded-full px-2 py-0.5 ml-1">
+            {cart.reduce((sum, item) => sum + item.qty, 0)}
           </span>
         </button>
       </div>

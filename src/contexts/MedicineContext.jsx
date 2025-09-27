@@ -19,27 +19,26 @@ export const MedicineProvider = ({ children }) => {
   };
 
   const addToBill = (id) => {
-    setMedicines((prev) =>
-      prev.map((med) =>
+    setMedicines((prevMeds) =>
+      prevMeds.map((med) =>
         med.id === id && med.quantity > 0
           ? { ...med, quantity: med.quantity - 1 }
           : med
       )
     );
 
-    const selected = medicines.find((m) => m.id === id);
-    if (selected) {
-      const exists = cart.find((item) => item.id === id);
+    setCart((prevCart) => {
+      const selected = medicines.find((m) => m.id === id);
+      if (!selected) return prevCart;
+      const exists = prevCart.find((item) => item.id === id);
       if (exists) {
-        setCart(
-          cart.map((item) =>
-            item.id === id ? { ...item, qty: item.qty + 1 } : item
-          )
+        return prevCart.map((item) =>
+          item.id === id ? { ...item, qty: item.qty + 1 } : item
         );
       } else {
-        setCart([...cart, { ...selected, qty: 1 }]);
+        return [...prevCart, { ...selected, qty: 1 }];
       }
-    }
+    });
   };
 
   const totalAmount = cart.reduce(

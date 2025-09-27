@@ -7,51 +7,49 @@ export default function Cart() {
   const navigate = useNavigate();
 
   return (
-    <div className="max-w-5xl mx-auto p-8">
-      <h1 className="text-4xl font-bold mb-8 text-center text-blue-700 flex items-center justify-center gap-3">
+    <div className="max-w-4xl mx-auto mt-10 px-4">
+      <h1 className="text-2xl font-bold mb-6 text-center text-white flex items-center justify-center gap-3">
         🛒 Your Cart
       </h1>
 
       {cart.length === 0 ? (
-        <p className="text-gray-500 text-lg text-center">
+        <p className="text-gray-400 text-lg text-center">
           Your cart is empty. Add some medicines to continue.
         </p>
       ) : (
-        <>
-          <div className="overflow-x-auto shadow-lg rounded-lg">
-            <table className="w-full border-collapse bg-white text-gray-800 rounded-lg overflow-hidden">
-              <thead className="bg-gradient-to-r from-blue-500 to-blue-600 text-white">
-                <tr>
-                  <th className="p-4 text-left">Name</th>
-                  <th className="p-4 text-center">Price</th>
-                  <th className="p-4 text-center">Qty</th>
-                  <th className="p-4 text-right">Subtotal</th>
+        <div className="overflow-x-auto rounded-lg shadow-lg bg-gray-900">
+          <table className="w-full text-left text-white">
+            <thead className="bg-gray-800">
+              <tr>
+                <th className="p-4">Medicine Name</th>
+                <th className="p-4 text-center">Price</th>
+                <th className="p-4 text-center">Qty</th>
+                <th className="p-4 text-right">Subtotal</th>
+              </tr>
+            </thead>
+            <tbody>
+              {cart.map((item) => (
+                <tr
+                  key={item.id}
+                  className="border-b border-gray-800 hover:bg-gray-800 transition"
+                >
+                  <td className="p-4 font-semibold">{item.name}</td>
+                  <td className="p-4 text-center">₹{item.price}</td>
+                  <td className="p-4 text-center">{item.qty}</td>
+                  <td className="p-4 text-right font-bold">₹{item.price * item.qty}</td>
                 </tr>
-              </thead>
-              <tbody>
-                {cart.map((item) => (
-                  <tr
-                    key={item.id}
-                    className="border-b hover:bg-blue-50 transition"
-                  >
-                    <td className="p-4 font-semibold">{item.name}</td>
-                    <td className="p-4 text-center">₹{item.price}</td>
-                    <td className="p-4 text-center">{item.qty}</td>
-                    <td className="p-4 text-right font-bold">
-                      ₹{item.price * item.qty}
-                    </td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          </div>
+              ))}
+            </tbody>
+          </table>
+        </div>
+      )}
 
-          <div className="flex justify-end mt-6">
-            <div className="bg-green-100 text-green-800 px-6 py-3 rounded-lg text-xl font-bold shadow">
-              Grand Total: ₹{totalAmount}
-            </div>
+      {cart.length > 0 && (
+        <div className="flex justify-end mt-6">
+          <div className="bg-green-100 text-green-800 px-6 py-3 rounded-lg text-xl font-bold shadow">
+            Grand Total: ₹{totalAmount}
           </div>
-        </>
+        </div>
       )}
 
       <div className="flex justify-center mt-8">

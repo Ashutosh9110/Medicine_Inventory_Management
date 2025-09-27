@@ -3,7 +3,7 @@ import { MedicineContext } from "../contexts/MedicineContext";
 import { useNavigate } from "react-router-dom";
 
 export default function Cart() {
-  const { cart, totalAmount } = useContext(MedicineContext);
+  const { cart, totalAmount, clearCart } = useContext(MedicineContext);
   const navigate = useNavigate();
 
   return (
@@ -45,10 +45,16 @@ export default function Cart() {
       )}
 
       {cart.length > 0 && (
-        <div className="flex justify-end mt-6">
+        <div className="flex justify-between items-center mt-6 gap-4 flex-wrap">
           <div className="bg-green-100 text-green-800 px-6 py-3 rounded-lg text-xl font-bold shadow">
             Grand Total: ₹{totalAmount}
           </div>
+          <button
+            onClick={clearCart}
+            className="bg-red-600 hover:bg-red-700 text-white px-5 py-2 rounded-lg shadow flex items-center gap-2 text-base font-semibold transition"
+          >
+            <span role="img" aria-label="Clear Cart">🗑️</span> Clear Cart
+          </button>
         </div>
       )}
 

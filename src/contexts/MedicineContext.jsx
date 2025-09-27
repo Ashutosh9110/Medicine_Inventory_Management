@@ -8,11 +8,18 @@ export const MedicineProvider = ({ children }) => {
     return saved ? JSON.parse(saved) : [];
   });
 
-  const [cart, setCart] = useState([]);
+  const [cart, setCart] = useState(() => {
+    const savedCart = localStorage.getItem("cart");
+    return savedCart ? JSON.parse(savedCart) : [];
+  });
 
   useEffect(() => {
     localStorage.setItem("medicines", JSON.stringify(medicines));
   }, [medicines]);
+
+  useEffect(() => {
+    localStorage.setItem("cart", JSON.stringify(cart));
+  }, [cart]);
 
   const addMedicine = (medicine) => {
     setMedicines([...medicines, { ...medicine, id: Date.now() }]);
@@ -41,6 +48,8 @@ export const MedicineProvider = ({ children }) => {
     });
   };
 
+  const clearCart = () => setCart([]);
+
   const totalAmount = cart.reduce(
     (acc, item) => acc + item.price * item.qty,
     0
@@ -48,7 +57,7 @@ export const MedicineProvider = ({ children }) => {
 
   return (
     <MedicineContext.Provider
-      value={{ medicines, addMedicine, addToBill, cart, totalAmount }}
+      value={{ medicines, addMedicine, addToBill, cart, totalAmount, clearCart }}
     >
       {children}
     </MedicineContext.Provider>
